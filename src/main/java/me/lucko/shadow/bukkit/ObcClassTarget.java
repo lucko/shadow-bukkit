@@ -39,7 +39,7 @@ import java.util.Optional;
 /**
  * Defines a class target relative to the versioned 'org.bukkit.craftbukkit' package.
  */
-@Target({ElementType.TYPE})
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ObcClassTarget {
 

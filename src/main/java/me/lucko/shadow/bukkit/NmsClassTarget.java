@@ -39,7 +39,7 @@ import java.util.Optional;
 /**
  * Defines a class target relative to the versioned 'net.minecraft.server' package.
  */
-@Target({ElementType.TYPE})
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NmsClassTarget {
 
