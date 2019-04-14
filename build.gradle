@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'me.lucko'
-version '1.1-SNAPSHOT'
+version '1.2-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -14,14 +14,12 @@ tasks.withType(JavaCompile) {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
-
     maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
 }
 
 dependencies {
-    compile 'me.lucko:shadow:1.0'
+    compile 'me.lucko:shadow:1.1'
     compileOnly 'org.checkerframework:checker-qual:2.4.0'
     compileOnly 'org.bukkit:bukkit:1.13.2-R0.1-SNAPSHOT'
 }
