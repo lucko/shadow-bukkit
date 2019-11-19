@@ -27,7 +27,6 @@ package me.lucko.shadow.bukkit;
 
 import me.lucko.shadow.Shadow;
 import me.lucko.shadow.TargetResolver;
-
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.lang.annotation.ElementType;
@@ -39,9 +38,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * Defines a method or field target with a value that varies between package versions.
+ * Defines a class, method or field target with a value that varies between package versions.
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ObfuscatedTarget {
 
@@ -56,6 +55,22 @@ public @interface ObfuscatedTarget {
      * A {@link TargetResolver} for the {@link ObfuscatedTarget} annotation.
      */
     TargetResolver RESOLVER = new TargetResolver() {
+        @Override
+        public @NonNull Optional<Class<?>> lookupClass(@NonNull Class<? extends Shadow> shadowClass) throws ClassNotFoundException {
+            String className = Optional.ofNullable(shadowClass.getAnnotation(ObfuscatedTarget.class))
+                    .flatMap(annotation -> Arrays.stream(annotation.value())
+                            .filter(mapping -> PackageVersion.runtimeVersion() == mapping.version())
+                            .findFirst()
+                    )
+                    .map(Mapping::value)
+                    .orElse(null);
+
+            if (className == null) {
+                return Optional.empty();
+            }
+            return Optional.of(Class.forName(className));
+        }
+
         @Override
         public @NonNull Optional<String> lookupMethod(@NonNull Method shadowMethod, @NonNull Class<? extends Shadow> shadowClass, @NonNull Class<?> targetClass) {
             return Optional.ofNullable(shadowMethod.getAnnotation(ObfuscatedTarget.class))
