@@ -26,66 +26,68 @@ dependencies {
 
 // Only used occasionally for deployment - not needed for normal builds.
 /*
-if (project.hasProperty('sonatypeUsername') && project.hasProperty('sonatypePassword')) {
-    apply plugin: 'signing'
-    javadoc {
-        options.encoding = 'UTF-8'
-        options.charSet = 'UTF-8'
-        options.links(
-                'https://docs.oracle.com/javase/8/docs/api/'
-        )
-        options.addStringOption('Xdoclint:none', '-quiet')
-    }
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier 'javadoc'
-        from javadoc.destinationDir
-    }
-    task sourcesJar(type: Jar) {
-        classifier 'sources'
-        from sourceSets.main.allSource
-    }
-    artifacts {
-        archives javadocJar
-        archives sourcesJar
-    }
-    signing {
-        useGpgCmd()
-        sign configurations.archives
-    }
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-                repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                }
-                pom {
-                    project {
-                        name 'shadow-bukkit'
-                        description 'Extra annotations for use with shadow and Bukkit'
+apply plugin: 'signing'
+javadoc {
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
+    options.links(
+            'https://docs.oracle.com/javase/8/docs/api/'
+    )
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+task sourcesJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+//signing {
+//    useGpgCmd()
+//    sign configurations.archives
+//}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+
+            //beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+            //repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+            //    authentication(userName: sonatypeUsername, password: sonatypePassword)
+            //}
+            repository(url: 'https://nexus.lucko.me/repository/maven-snapshots/') {
+                authentication(userName: luckoNexusUsername, password: luckoNexusPassword)
+            }
+            pom {
+                project {
+                    name 'shadow-bukkit'
+                    description 'Extra annotations for use with shadow and Bukkit'
+                    url 'https://github.com/lucko/shadow-bukkit'
+                    licenses {
+                        license {
+                            name 'MIT'
+                            url 'https://opensource.org/licenses/MIT'
+                        }
+                    }
+                    developers {
+                        developer {
+                            name 'Luck'
+                            email 'git@lucko.me'
+                            url 'https://github.com/lucko'
+                        }
+                    }
+                    scm {
+                        connection 'scm:git:https://github.com/lucko/shadow-bukkit.git'
+                        developerConnection 'scm:git:git@github.com:lucko/shadow-bukkit.git'
                         url 'https://github.com/lucko/shadow-bukkit'
-                        licenses {
-                            license {
-                                name 'MIT'
-                                url 'https://opensource.org/licenses/MIT'
-                            }
-                        }
-                        developers {
-                            developer {
-                                name 'Luck'
-                                email 'git@lucko.me'
-                                url 'https://github.com/lucko'
-                            }
-                        }
-                        scm {
-                            connection 'scm:git:https://github.com/lucko/shadow-bukkit.git'
-                            developerConnection 'scm:git:git@github.com:lucko/shadow-bukkit.git'
-                            url 'https://github.com/lucko/shadow-bukkit'
-                        }
-                        issueManagement {
-                            system 'GitHub'
-                            url 'https://github.com/lucko/shadow-bukkit/issues'
-                        }
+                    }
+                    issueManagement {
+                        system 'GitHub'
+                        url 'https://github.com/lucko/shadow-bukkit/issues'
                     }
                 }
             }
