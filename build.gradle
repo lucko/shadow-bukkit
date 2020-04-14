@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'me.lucko'
-version '1.3-SNAPSHOT'
+version '1.4-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -19,9 +19,9 @@ repositories {
 }
 
 dependencies {
-    compile 'me.lucko:shadow:1.1'
+    compile 'me.lucko:shadow:1.2'
     compileOnly 'org.checkerframework:checker-qual:2.4.0'
-    compileOnly 'org.bukkit:bukkit:1.14.4-R0.1-SNAPSHOT'
+    compileOnly 'org.bukkit:bukkit:1.15.2-R0.1-SNAPSHOT'
 }
 
 // Only used occasionally for deployment - not needed for normal builds.
@@ -75,9 +75,10 @@ uploadArchives {
                     }
                     developers {
                         developer {
+                            id 'lucko'
                             name 'Luck'
+                            url 'https://lucko.me'
                             email 'git@lucko.me'
-                            url 'https://github.com/lucko'
                         }
                     }
                     scm {
