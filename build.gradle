@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'me.lucko'
-version '1.4-SNAPSHOT'
+version '1.5-SNAPSHOT'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compile 'me.lucko:shadow:1.2'
+    compile 'me.lucko:shadow:1.3'
     compileOnly 'org.checkerframework:checker-qual:2.4.0'
     compileOnly 'org.bukkit:bukkit:1.15.2-R0.1-SNAPSHOT'
 }
@@ -47,21 +47,21 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
-//signing {
-//    useGpgCmd()
-//    sign configurations.archives
-//}
+signing {
+    useGpgCmd()
+    sign configurations.archives
+}
 uploadArchives {
     repositories {
         mavenDeployer {
 
-            //beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-            //repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-            //    authentication(userName: sonatypeUsername, password: sonatypePassword)
-            //}
-            repository(url: 'https://nexus.lucko.me/repository/maven-snapshots/') {
-                authentication(userName: luckoNexusUsername, password: luckoNexusPassword)
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
             }
+            //repository(url: 'https://nexus.lucko.me/repository/maven-snapshots/') {
+            //    authentication(userName: luckoNexusUsername, password: luckoNexusPassword)
+            //}
             pom {
                 project {
                     name 'shadow-bukkit'
