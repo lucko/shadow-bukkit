@@ -28,6 +28,8 @@ package me.lucko.shadow.bukkit;
 import org.bukkit.Bukkit;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+import java.util.Objects;
+
 /**
  * An enumeration of CraftBukkit package versions.
  */
@@ -85,6 +87,7 @@ public enum PackageVersion {
      * @return the full class name
      */
     public @NonNull String nms(@NonNull String className) {
+        Objects.requireNonNull(className, "className");
         return this.nmsPrefix + className;
     }
 
@@ -105,6 +108,7 @@ public enum PackageVersion {
      * @return the full class name
      */
     public @NonNull String obc(@NonNull String className) {
+        Objects.requireNonNull(className, "className");
         return this.obcPrefix + className;
     }
 
@@ -116,6 +120,60 @@ public enum PackageVersion {
      */
     public @NonNull Class<?> obcClass(@NonNull String className) throws ClassNotFoundException {
         return Class.forName(obc(className));
+    }
+
+    private void checkComparable(PackageVersion other) {
+        Objects.requireNonNull(other, "other");
+        if (this == NONE) {
+            throw new IllegalArgumentException("this cannot be NONE");
+        }
+        if (other == NONE) {
+            throw new IllegalArgumentException("other cannot be NONE");
+        }
+    }
+
+    /**
+     * Gets if this version comes before the {@code other} version.
+     *
+     * @param other the other version
+     * @return if it comes before
+     */
+    public boolean isBefore(@NonNull PackageVersion other) {
+        checkComparable(other);
+        return this.ordinal() < other.ordinal();
+    }
+
+    /**
+     * Gets if this version comes after the {@code other} version.
+     *
+     * @param other the other version
+     * @return if it comes after
+     */
+    public boolean isAfter(@NonNull PackageVersion other) {
+        checkComparable(other);
+        return this.ordinal() > other.ordinal();
+    }
+
+    /**
+     * Gets if this version is the same as or comes before the {@code other} version.
+     *
+     * @param other the other version
+     * @return if it comes before or is the same
+     */
+    public boolean isBeforeOrEq(@NonNull PackageVersion other) {
+        checkComparable(other);
+        return this.ordinal() <= other.ordinal();
+    }
+
+    /**
+     * Gets if this version is the same as or comes after the {@code other} version.
+     *
+     * @param other the other version
+     * @return if it comes after or is the same
+     */
+    public boolean isAfterOrEq(@NonNull PackageVersion other) {
+        checkComparable(other);
+        return this.ordinal() >= other.ordinal();
     }
 
     private static final String RUNTIME_VERSION_STRING;
