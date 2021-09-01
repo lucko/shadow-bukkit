@@ -59,7 +59,7 @@ public enum PackageVersion {
     v1_16_R1,
     v1_16_R2,
     v1_16_R3,
-    v1_17_R1;
+    v1_17_R1(true);
 
     /**
      * The nms prefix (without the version component)
@@ -77,7 +77,11 @@ public enum PackageVersion {
     private final @NonNull String obcPrefix;
 
     PackageVersion() {
-        this.nmsPrefix = name().equals("v1_17_R1")?NMS_MODERN:NMS + getPackageComponent();
+       this(false);
+    }
+
+    PackageVersion(boolean useModern){
+        this.nmsPrefix = useModern?NMS_MODERN:NMS + getPackageComponent();
         this.obcPrefix = OBC + getPackageComponent();
     }
 
