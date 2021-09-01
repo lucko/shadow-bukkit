@@ -66,6 +66,8 @@ public enum PackageVersion {
      */
     public static final String NMS = "net.minecraft.server";
 
+    public static final String NMS_MODERN = "net.minecraft.";
+
     /**
      * The obc prefix (without the version component)
      */
@@ -75,11 +77,12 @@ public enum PackageVersion {
     private final @NonNull String obcPrefix;
 
     PackageVersion() {
-        this.nmsPrefix = NMS + getPackageComponent();
+        this.nmsPrefix = name().equals("v1_17_R1")?NMS_MODERN:NMS + getPackageComponent();
         this.obcPrefix = OBC + getPackageComponent();
     }
 
     protected @NonNull String getPackageComponent() {
+
         return "." + name() + ".";
     }
 
