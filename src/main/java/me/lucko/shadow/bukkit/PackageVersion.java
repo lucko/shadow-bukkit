@@ -66,6 +66,9 @@ public enum PackageVersion {
      */
     public static final String NMS = "net.minecraft.server";
 
+    /**
+     * The nms prefix for 1.17+ (excludes version component)
+     */
     public static final String NMS_MODERN = "net.minecraft.";
 
     /**
