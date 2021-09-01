@@ -86,7 +86,6 @@ public enum PackageVersion {
     }
 
     protected @NonNull String getPackageComponent() {
-
         return "." + name() + ".";
     }
 
