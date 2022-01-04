@@ -81,7 +81,7 @@ public enum PackageVersion {
     private final @NonNull String obcPrefix;
 
     PackageVersion() {
-       this(false);
+        this(false);
     }
 
     PackageVersion(boolean useModern) {
