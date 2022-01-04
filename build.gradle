@@ -111,3 +111,11 @@ signing {
     required = true
 }
 */
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+}
