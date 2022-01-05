@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'me.lucko'
-version '1.8-SNAPSHOT'
+version '1.18' // track MC version
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -64,6 +64,13 @@ publishing {
                 password sonatypePassword
             }
         }
+        //maven {
+        //    url = 'https://nexus.lucko.me/repository/maven-releases/'
+        //    credentials {
+        //        username luckoNexusUsername
+        //        password luckoNexusPassword
+        //    }
+        //}
     }
 
     publications {
