@@ -85,7 +85,7 @@ public enum PackageVersion {
     }
 
     PackageVersion(boolean useModern) {
-        this.nmsPrefix = (useModern ? NMS_MODERN : NMS) + getPackageComponent();
+        this.nmsPrefix = useModern ? NMS_MODERN : (NMS + getPackageComponent());
         this.obcPrefix = OBC + getPackageComponent();
     }
 
