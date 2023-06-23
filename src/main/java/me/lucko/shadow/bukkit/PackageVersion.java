@@ -64,7 +64,9 @@ public enum PackageVersion {
     v1_18_R2(true),
     v1_19_R1(true),
     v1_19_R2(true),
-    v1_19_R3(true);
+    v1_19_R3(true),
+    v1_20_R1(true),
+    ;
 
     /**
      * The nms prefix (without the version component)
